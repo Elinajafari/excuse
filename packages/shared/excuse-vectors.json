@@ -1,0 +1,420 @@
+{
+  "clean_text": [
+    {
+      "raw": "  a  strike   on the route ",
+      "clean": "a strike on the route"
+    },
+    {
+      "raw": "tab\there",
+      "clean": "tab here"
+    },
+    {
+      "raw": "line\nbreak\r\nend",
+      "clean": "line break end"
+    },
+    {
+      "raw": "bell\u0007x",
+      "clean": "bell x"
+    },
+    {
+      "raw": "dely",
+      "clean": "del y"
+    },
+    {
+      "raw": "   ",
+      "clean": ""
+    },
+    {
+      "raw": "",
+      "clean": ""
+    },
+    {
+      "raw": "nbsp here",
+      "clean": "nbsp here"
+    },
+    {
+      "raw": "nelhere",
+      "clean": "nel here"
+    },
+    {
+      "raw": "ideo　space",
+      "clean": "ideo space"
+    },
+    {
+      "raw": "zw​join",
+      "clean": "zw​join"
+    },
+    {
+      "raw": "اعتصاب  بندر ۳ روز",
+      "clean": "اعتصاب بندر ۳ روز"
+    },
+    {
+      "raw": "emoji 🚚 truck",
+      "clean": "emoji 🚚 truck"
+    }
+  ],
+  "split_list": [
+    {
+      "text": "a strike|a flood",
+      "items": [
+        "a strike",
+        "a flood"
+      ]
+    },
+    {
+      "text": "one",
+      "items": [
+        "one"
+      ]
+    },
+    {
+      "text": "a||c",
+      "items": [
+        "a",
+        "",
+        "c"
+      ]
+    },
+    {
+      "text": " x | y ",
+      "items": [
+        "x",
+        "y"
+      ]
+    },
+    {
+      "text": "|",
+      "items": [
+        "",
+        ""
+      ]
+    },
+    {
+      "text": "",
+      "items": [
+        ""
+      ]
+    },
+    {
+      "text": "tab\tin|new\nline",
+      "items": [
+        "tab in",
+        "new line"
+      ]
+    }
+  ],
+  "parse_days": [
+    {
+      "text": "3|2|5",
+      "days": [
+        3,
+        2,
+        5
+      ]
+    },
+    {
+      "text": "1",
+      "days": [
+        1
+      ]
+    },
+    {
+      "text": "90",
+      "days": [
+        90
+      ]
+    },
+    {
+      "text": "3||5",
+      "days": null
+    },
+    {
+      "text": "3|x",
+      "days": null
+    },
+    {
+      "text": "1000",
+      "days": null
+    },
+    {
+      "text": "۳|2",
+      "days": null
+    },
+    {
+      "text": " 7 | 8 ",
+      "days": [
+        7,
+        8
+      ]
+    },
+    {
+      "text": "",
+      "days": null
+    },
+    {
+      "text": "-1",
+      "days": null
+    },
+    {
+      "text": "2.5",
+      "days": null
+    },
+    {
+      "text": "007",
+      "days": [
+        7
+      ]
+    }
+  ],
+  "normalise_choice": [
+    {
+      "raw": "0",
+      "n": 3,
+      "choice": "0"
+    },
+    {
+      "raw": " 2 ",
+      "n": 3,
+      "choice": "2"
+    },
+    {
+      "raw": "[1]",
+      "n": 3,
+      "choice": "1"
+    },
+    {
+      "raw": "#0",
+      "n": 3,
+      "choice": "0"
+    },
+    {
+      "raw": "(2)",
+      "n": 3,
+      "choice": "2"
+    },
+    {
+      "raw": "none",
+      "n": 3,
+      "choice": "none"
+    },
+    {
+      "raw": "NONE",
+      "n": 3,
+      "choice": "none"
+    },
+    {
+      "raw": " None ",
+      "n": 3,
+      "choice": "none"
+    },
+    {
+      "raw": "[none]",
+      "n": 3,
+      "choice": "none"
+    },
+    {
+      "raw": "3",
+      "n": 3,
+      "choice": ""
+    },
+    {
+      "raw": "-1",
+      "n": 3,
+      "choice": ""
+    },
+    {
+      "raw": "1.0",
+      "n": 3,
+      "choice": ""
+    },
+    {
+      "raw": "two",
+      "n": 3,
+      "choice": ""
+    },
+    {
+      "raw": "",
+      "n": 3,
+      "choice": ""
+    },
+    {
+      "raw": "02",
+      "n": 3,
+      "choice": "2"
+    },
+    {
+      "raw": "100",
+      "n": 3,
+      "choice": ""
+    },
+    {
+      "raw": "5",
+      "n": 6,
+      "choice": "5"
+    },
+    {
+      "raw": "##1##",
+      "n": 3,
+      "choice": "1"
+    },
+    {
+      "raw": "1 or 2",
+      "n": 3,
+      "choice": ""
+    },
+    {
+      "raw": "٢",
+      "n": 3,
+      "choice": ""
+    }
+  ],
+  "unreverse": [
+    {
+      "choice": "0",
+      "n": 3,
+      "back": "2"
+    },
+    {
+      "choice": "2",
+      "n": 3,
+      "back": "0"
+    },
+    {
+      "choice": "1",
+      "n": 3,
+      "back": "1"
+    },
+    {
+      "choice": "none",
+      "n": 3,
+      "back": "none"
+    },
+    {
+      "choice": "",
+      "n": 3,
+      "back": ""
+    },
+    {
+      "choice": "0",
+      "n": 1,
+      "back": "0"
+    },
+    {
+      "choice": "4",
+      "n": 6,
+      "back": "1"
+    }
+  ],
+  "fold": [
+    {
+      "forward": "0",
+      "reverse": "0",
+      "folded": "0"
+    },
+    {
+      "forward": "0",
+      "reverse": "1",
+      "folded": "none"
+    },
+    {
+      "forward": "none",
+      "reverse": "none",
+      "folded": "none"
+    },
+    {
+      "forward": "none",
+      "reverse": "0",
+      "folded": "none"
+    },
+    {
+      "forward": "1",
+      "reverse": "1",
+      "folded": "1"
+    },
+    {
+      "forward": "",
+      "reverse": "0",
+      "folded": ""
+    },
+    {
+      "forward": "0",
+      "reverse": "",
+      "folded": ""
+    },
+    {
+      "forward": "1",
+      "reverse": "none",
+      "folded": "none"
+    }
+  ],
+  "ruling_sound": [
+    {
+      "ruling": "none",
+      "asked": [
+        0,
+        1,
+        2
+      ],
+      "sound": true
+    },
+    {
+      "ruling": "0",
+      "asked": [
+        0,
+        1,
+        2
+      ],
+      "sound": true
+    },
+    {
+      "ruling": "2",
+      "asked": [
+        1,
+        2
+      ],
+      "sound": true
+    },
+    {
+      "ruling": "0",
+      "asked": [
+        1,
+        2
+      ],
+      "sound": false
+    },
+    {
+      "ruling": "",
+      "asked": [
+        0
+      ],
+      "sound": false
+    },
+    {
+      "ruling": "x",
+      "asked": [
+        0
+      ],
+      "sound": false
+    },
+    {
+      "ruling": "7",
+      "asked": [
+        0,
+        1
+      ],
+      "sound": false
+    },
+    {
+      "ruling": "none",
+      "asked": [],
+      "sound": true
+    },
+    {
+      "ruling": "1",
+      "asked": [
+        1
+      ],
+      "sound": true
+    }
+  ]
+}

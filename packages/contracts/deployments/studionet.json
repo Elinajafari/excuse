@@ -1,0 +1,264 @@
+{
+  "network": "studionet",
+  "chain_id": 61999,
+  "contract": "0xe6e9B934aF3600665dDCAeE2842FDb3B492f8a0E",
+  "explorer": "https://explorer-studio.genlayer.com/address/0xe6e9B934aF3600665dDCAeE2842FDb3B492f8a0E",
+  "source_sha256": "7e89c8270b525a5936c641c28a3d5fdc8f9e4f85980572ad5d570c4dbdc8ccb8",
+  "constructor": {
+    "grace_seconds": 300
+  },
+  "deployer": "0x7341Bc21D4a09756b98f1B90E0df13Ed05002623",
+  "steps": [
+    {
+      "step": "deploy",
+      "method": "deploy",
+      "from": "0x7341Bc21D4a09756b98f1B90E0df13Ed05002623",
+      "tx": "0x30ae8facf363d87c32bd17fb25629ac88ead35f6aefadb0519d291c79b1587e2",
+      "status": "ACCEPTED",
+      "ok": true,
+      "refusal": "",
+      "address": "0xe6e9B934aF3600665dDCAeE2842FDb3B492f8a0E"
+    },
+    {
+      "step": "obligation 0 opened: three excuses",
+      "method": "open",
+      "from": "0x158B835C873846519b2AfE0Ae04Db240912CE64f",
+      "tx": "0xde4b3eb4d6d66ff316b939cd2172bb13f2da991c29a8e6747a282ac5da9074cf",
+      "status": "ACCEPTED",
+      "ok": true,
+      "refusal": ""
+    },
+    {
+      "step": "obligation 1 opened: five minutes",
+      "method": "open",
+      "from": "0x158B835C873846519b2AfE0Ae04Db240912CE64f",
+      "tx": "0x11e30856422e6cdec5a839ffc24eb0ab6df89d457745ab329105f8d0307d1cec",
+      "status": "ACCEPTED",
+      "ok": true,
+      "refusal": ""
+    },
+    {
+      "step": "a breach recorded before the deadline",
+      "method": "lapse",
+      "from": "0x95157172Ba509A6489504A6e06A9227e83cB9c12",
+      "tx": "0x11ddac122bb799d528531090581c4831c3d9686f08ae944fb6dc107f1af0d36d",
+      "status": "ACCEPTED",
+      "ok": false,
+      "refusal": "[EXPECTED] the deadline is 2026-09-24T12:57:36Z"
+    },
+    {
+      "step": "a stranger claims an excuse",
+      "method": "claim",
+      "from": "0x95157172Ba509A6489504A6e06A9227e83cB9c12",
+      "tx": "0x5cdb2fcf96f0856e2ceac8fd7804f31f6c84cdda9dab0b892bae59ed15e0ac6b",
+      "status": "ACCEPTED",
+      "ok": false,
+      "refusal": "[EXPECTED] only the obligor may claim an excuse"
+    },
+    {
+      "step": "the obligor claims: a port strike",
+      "method": "claim",
+      "from": "0x328916665B1b55BEcACd2003C0966d730c366D3c",
+      "tx": "0x559d582c4665721b0041e2efc056d6fe0965b65c63f00646503978659a756599",
+      "status": "ACCEPTED",
+      "ok": true,
+      "refusal": ""
+    },
+    {
+      "step": "a second claim while one waits",
+      "method": "claim",
+      "from": "0x328916665B1b55BEcACd2003C0966d730c366D3c",
+      "tx": "0xee29ddcd575794d36d812497cb770ec7edc8b8a9ee47613f8561f9aea00f6abd",
+      "status": "ACCEPTED",
+      "ok": false,
+      "refusal": "[EXPECTED] a claim is waiting for its ruling; either party may ask for it"
+    },
+    {
+      "step": "a stranger asks for the ruling",
+      "method": "rule",
+      "from": "0x95157172Ba509A6489504A6e06A9227e83cB9c12",
+      "tx": "0xe06842ec8b22317096fcbce7527531924977d670a251d361ab3a3aa5b6839fbb",
+      "status": "ACCEPTED",
+      "ok": false,
+      "refusal": "[EXPECTED] only the obligee or the obligor may ask for a ruling"
+    },
+    {
+      "step": "ruled: both orders, every excuse",
+      "method": "rule",
+      "from": "0x158B835C873846519b2AfE0Ae04Db240912CE64f",
+      "tx": "0x600e96be67ee3e410d029ca43152c1b55365f46d720844b94d1272d692b56962",
+      "status": "ACCEPTED",
+      "ok": true,
+      "refusal": ""
+    },
+    {
+      "step": "the same account again",
+      "method": "claim",
+      "from": "0x328916665B1b55BEcACd2003C0966d730c366D3c",
+      "tx": "0x33667f8c90711d3949e49a72b472af190b640a967bf1fb628910fb2a8928e547",
+      "status": "ACCEPTED",
+      "ok": false,
+      "refusal": "[EXPECTED] this account was already ruled on; a new claim has to describe the event differently"
+    },
+    {
+      "step": "the obligor claims: staff illness",
+      "method": "claim",
+      "from": "0x328916665B1b55BEcACd2003C0966d730c366D3c",
+      "tx": "0xc32246fd7e1f99fa79f1adb4cb7f6cbb46bad054683703e321b6e4d8ab4bae49",
+      "status": "ACCEPTED",
+      "ok": true,
+      "refusal": ""
+    },
+    {
+      "step": "ruled: the unused excuses only",
+      "method": "rule",
+      "from": "0x328916665B1b55BEcACd2003C0966d730c366D3c",
+      "tx": "0xd0ec2c5106e4dd4d359c3dd2a4c20b7f8705bbc37bbc8976f537a3f3cbd80e2c",
+      "status": "ACCEPTED",
+      "ok": true,
+      "refusal": ""
+    },
+    {
+      "step": "a third claim",
+      "method": "claim",
+      "from": "0x328916665B1b55BEcACd2003C0966d730c366D3c",
+      "tx": "0x69e2c39d882d87f6eb8138dcffa5f8e89cf36131970e099a17fa130e17f43438",
+      "status": "ACCEPTED",
+      "ok": false,
+      "refusal": "[EXPECTED] an obligation takes at most 2 claims"
+    },
+    {
+      "step": "obligation 0 kept",
+      "method": "fulfil",
+      "from": "0x158B835C873846519b2AfE0Ae04Db240912CE64f",
+      "tx": "0xd1d68c3c4822f065a04d0d53f65982036a72e450f6a9ed16e4e15983b39123b3",
+      "status": "ACCEPTED",
+      "ok": true,
+      "refusal": ""
+    },
+    {
+      "step": "obligation 1 breached",
+      "method": "lapse",
+      "from": "0x95157172Ba509A6489504A6e06A9227e83cB9c12",
+      "tx": "0xab55842f0ccdcd167f28798f1acfdd4c21c60c02279c097890e66222c43d0667",
+      "status": "ACCEPTED",
+      "ok": true,
+      "refusal": ""
+    }
+  ],
+  "accounts": {
+    "deployer": "0x7341Bc21D4a09756b98f1B90E0df13Ed05002623",
+    "obligee": "0x158B835C873846519b2AfE0Ae04Db240912CE64f",
+    "obligor": "0x328916665B1b55BEcACd2003C0966d730c366D3c",
+    "stranger": "0x95157172Ba509A6489504A6e06A9227e83cB9c12"
+  },
+  "obligations": [
+    {
+      "obligation": {
+        "claims": 2,
+        "closed_at": "2026-09-24T12:58:52Z",
+        "days_extended": 3,
+        "due_at": "2026-09-27T13:52:19Z",
+        "duty": "Deliver 400 printed catalogues to stand B12 at the Harbour trade fair.",
+        "grace_ends": "2026-09-27T13:57:19Z",
+        "obligee": "0x158B835C873846519b2AfE0Ae04Db240912CE64f",
+        "obligor": "0x328916665B1b55BEcACd2003C0966d730c366D3c",
+        "opened_at": "2026-09-24T12:52:19Z",
+        "pending": false,
+        "status": "kept",
+        "title": "Catalogue delivery for the Harbour trade fair"
+      },
+      "excuses": [
+        {
+          "days": 3,
+          "index": 0,
+          "obligation": 0,
+          "text": "a strike or blockade that stops carriers serving the delivery route",
+          "used_by": 1
+        },
+        {
+          "days": 2,
+          "index": 1,
+          "obligation": 0,
+          "text": "an order of a public authority that closes the venue or the route",
+          "used_by": 0
+        },
+        {
+          "days": 5,
+          "index": 2,
+          "obligation": 0,
+          "text": "a fire, flood or storm that damages the goods or the print works",
+          "used_by": 0
+        }
+      ],
+      "claims": [
+        {
+          "account": "A national port strike began on 3 March and stopped every carrier serving the Rotterdam delivery route for two days. The printed catalogues sat at the depot until the strike ended.",
+          "at": "2026-09-24T12:53:47.750138Z",
+          "by": "0x328916665B1b55BEcACd2003C0966d730c366D3c",
+          "days_granted": 3,
+          "id": 0,
+          "obligation": 0,
+          "reason_is_leader_supplied": true,
+          "ruled": true,
+          "ruling": "0",
+          "seq": 1,
+          "why": "The account describes a strike stopping carriers serving the delivery route."
+        },
+        {
+          "account": "Our print supervisor was ill for a week in February, so the second print run started late and the catalogues left the print works four days behind schedule.",
+          "at": "2026-09-24T12:57:03.259763Z",
+          "by": "0x328916665B1b55BEcACd2003C0966d730c366D3c",
+          "days_granted": 0,
+          "id": 1,
+          "obligation": 0,
+          "reason_is_leader_supplied": true,
+          "ruled": true,
+          "ruling": "none",
+          "seq": 2,
+          "why": "Staff illness is not listed as an excuse; the delay was due to internal personnel issues rather than authorities or natural disasters."
+        }
+      ]
+    },
+    {
+      "obligation": {
+        "claims": 0,
+        "closed_at": "2026-09-24T12:59:04Z",
+        "days_extended": 0,
+        "due_at": "2026-09-24T12:57:36Z",
+        "duty": "Install the printed stand signage at stand B12 before the fair opens.",
+        "grace_ends": "2026-09-24T13:02:36Z",
+        "obligee": "0x158B835C873846519b2AfE0Ae04Db240912CE64f",
+        "obligor": "0x328916665B1b55BEcACd2003C0966d730c366D3c",
+        "opened_at": "2026-09-24T12:52:36Z",
+        "pending": false,
+        "status": "breached",
+        "title": "Stand signage for the Harbour trade fair"
+      },
+      "excuses": [
+        {
+          "days": 3,
+          "index": 0,
+          "obligation": 1,
+          "text": "a strike or blockade that stops carriers serving the delivery route",
+          "used_by": 0
+        },
+        {
+          "days": 2,
+          "index": 1,
+          "obligation": 1,
+          "text": "an order of a public authority that closes the venue or the route",
+          "used_by": 0
+        },
+        {
+          "days": 5,
+          "index": 2,
+          "obligation": 1,
+          "text": "a fire, flood or storm that damages the goods or the print works",
+          "used_by": 0
+        }
+      ],
+      "claims": []
+    }
+  ]
+}

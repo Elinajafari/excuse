@@ -1,0 +1,121 @@
+{
+  "contract": "packages/contracts/excuse.py",
+  "note": "Generated from the contract source and deployments/studionet.json; packages/contracts/tests/test_shape.py fails if either drifts from this file.",
+  "constructor": {
+    "grace_seconds": "u256"
+  },
+  "writes": {
+    "open": {
+      "params": {
+        "title": "str",
+        "duty": "str",
+        "obligor": "str",
+        "due_in": "u256",
+        "excuses": "str",
+        "days": "str"
+      }
+    },
+    "claim": {
+      "params": {
+        "obligation_id": "u256",
+        "account": "str"
+      }
+    },
+    "rule": {
+      "params": {
+        "obligation_id": "u256"
+      }
+    },
+    "fulfil": {
+      "params": {
+        "obligation_id": "u256"
+      }
+    },
+    "lapse": {
+      "params": {
+        "obligation_id": "u256"
+      }
+    }
+  },
+  "views": {
+    "count": {
+      "params": {},
+      "returns": "u256"
+    },
+    "status": {
+      "params": {
+        "obligation_id": "u256"
+      },
+      "returns": "str"
+    },
+    "obligation": {
+      "params": {
+        "obligation_id": "u256"
+      },
+      "returns": "dict",
+      "fields": [
+        "claims",
+        "closed_at",
+        "days_extended",
+        "due_at",
+        "duty",
+        "grace_ends",
+        "obligee",
+        "obligor",
+        "opened_at",
+        "pending",
+        "status",
+        "title"
+      ],
+      "sampled_from_record": [
+        "obligations",
+        0,
+        "obligation"
+      ]
+    },
+    "excuses_of": {
+      "params": {
+        "obligation_id": "u256"
+      },
+      "returns": "dict",
+      "row_fields": [
+        "days",
+        "index",
+        "obligation",
+        "text",
+        "used_by"
+      ],
+      "sampled_from_record": [
+        "obligations",
+        0,
+        "excuses",
+        0
+      ]
+    },
+    "claims_of": {
+      "params": {
+        "obligation_id": "u256"
+      },
+      "returns": "dict",
+      "row_fields": [
+        "account",
+        "at",
+        "by",
+        "days_granted",
+        "id",
+        "obligation",
+        "reason_is_leader_supplied",
+        "ruled",
+        "ruling",
+        "seq",
+        "why"
+      ],
+      "sampled_from_record": [
+        "obligations",
+        0,
+        "claims",
+        0
+      ]
+    }
+  }
+}

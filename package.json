@@ -1,0 +1,27 @@
+{
+  "name": "excuse",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Excuse: a deadline moves only for an excuse that was agreed in advance, ruled by GenLayer validators.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Elina (https://github.com/Elinajafari)",
+  "repository": { "type": "git", "url": "https://github.com/Elinajafari/excuse" },
+  "scripts": {
+    "test": "pnpm -r --sequential test",
+    "test:contract": "pnpm --filter @excuse/contracts test",
+    "test:shared": "pnpm --filter @excuse/shared test",
+    "typecheck": "pnpm --filter @excuse/shared typecheck",
+    "mutate:contract": "pnpm --filter @excuse/contracts mutate",
+    "measure:contract": "pnpm --filter @excuse/contracts measure",
+    "lint:genvm": "node packages/contracts/scripts/lint.mjs",
+    "deploy:contract": "node packages/contracts/scripts/deploy.mjs",
+    "seed:contract": "node packages/contracts/scripts/seed.mjs",
+    "e2e:contract": "node packages/contracts/scripts/e2e.mjs",
+    "verify:contract": "node packages/contracts/scripts/verify.mjs",
+    "evidence:contract": "node packages/contracts/scripts/evidence.mjs",
+    "demo:contract": "pnpm deploy:contract && pnpm seed:contract && pnpm e2e:contract && pnpm evidence:contract"
+  },
+  "engines": { "node": ">=20" },
+  "packageManager": "pnpm@10.18.2"
+}

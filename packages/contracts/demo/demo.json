@@ -1,0 +1,32 @@
+{
+  "grace_seconds": 300,
+  "obligation": {
+    "title": "Catalogue delivery for the Harbour trade fair",
+    "duty": "Deliver 400 printed catalogues to stand B12 at the Harbour trade fair.",
+    "due_in": 3600,
+    "excuses": [
+      "a strike or blockade that stops carriers serving the delivery route",
+      "an order of a public authority that closes the venue or the route",
+      "a fire, flood or storm that damages the goods or the print works"
+    ],
+    "days": [
+      3,
+      2,
+      5
+    ]
+  },
+  "short_obligation": {
+    "title": "Stand signage for the Harbour trade fair",
+    "duty": "Install the printed stand signage at stand B12 before the fair opens.",
+    "due_in": 300
+  },
+  "claims": {
+    "strike": "A national port strike began on 3 March and stopped every carrier serving the Rotterdam delivery route for two days. The printed catalogues sat at the depot until the strike ended.",
+    "illness": "Our print supervisor was ill for a week in February, so the second print run started late and the catalogues left the print works four days behind schedule.",
+    "third": "The courier we booked cancelled at short notice and the replacement could not collect the catalogues until the following morning."
+  },
+  "expected_rulings": [
+    "0",
+    "none"
+  ]
+}
