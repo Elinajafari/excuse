@@ -18,6 +18,7 @@ and prove it, not a standalone contract.
 
 > Every transaction of the live demo, and the wallet that sent it, read back
 > from the chain: **[EVIDENCE.md](EVIDENCE.md)**.
+> A second round from two new wallets: **[EVIDENCE-ACTIVITY.md](EVIDENCE-ACTIVITY.md)**.
 
 ---
 
@@ -129,9 +130,11 @@ pnpm evidence:contract  # rewrites EVIDENCE.md from the chain
 | `pnpm lint:genvm` | GenVM linter on the contract, pinned to the runner it depends on |
 | `pnpm deploy:contract` | deploy to studionet (a throwaway deployer key) |
 | `pnpm seed:contract` | the demo: every route and every refusal, recorded; waits about five minutes so the breach is real |
+| `pnpm seed:activity` | a second round on the deployed contract from two new wallets, recorded apart from the demo |
 | `pnpm e2e:contract` | the record checked against the live chain |
 | `pnpm verify:contract` | the deployed source, byte for byte against the file, and linted |
 | `pnpm evidence:contract` | EVIDENCE.md: every transaction and its sender, from the chain |
+| `pnpm evidence:activity` | EVIDENCE-ACTIVITY.md: the second round, from the chain |
 | `pnpm demo:contract` | deploy, seed, e2e and evidence in one go |
 
 ### Configuration
@@ -161,6 +164,16 @@ while one waits, a stranger asking for a ruling, the same account filed again,
 and a third claim. Full detail, with every hash: [EVIDENCE.md](EVIDENCE.md)
 and [`packages/contracts/README.md`](packages/contracts/README.md#verified-against-the-live-deployment).
 
+### Second round, two new wallets
+
+`pnpm seed:activity` ran on the same contract from two wallets that had never
+been used: a new obligee opened obligation 2 (printed menus for a festival,
+the same three excuses), its attempt to claim an excuse itself was refused, the
+new obligor claimed that a storm flooded the print works, the validators ruled
+**excuse 2 (fire, flood or storm)** in both orders and the deadline moved
+**+5 days**, the obligor's attempt to acknowledge its own work was refused, and
+the obligee marked it **kept**. Every hash: [EVIDENCE-ACTIVITY.md](EVIDENCE-ACTIVITY.md).
+
 ## Repo layout
 
 ```
@@ -176,6 +189,7 @@ and [`packages/contracts/README.md`](packages/contracts/README.md#verified-again
 │  │  └─ DECISIONS.md            why every rule is the way it is
 │  └─ shared/                    types, parsers, contract-shape.json, the rules port and its vectors
 ├─ EVIDENCE.md                   every live transaction and its sender
+├─ EVIDENCE-ACTIVITY.md          the second round, two new wallets
 ├─ .env.example
 └─ package.json · pnpm-workspace.yaml
 ```

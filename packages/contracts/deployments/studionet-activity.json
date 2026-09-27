@@ -1,0 +1,120 @@
+{
+  "network": "studionet",
+  "contract": "0xe6e9B934aF3600665dDCAeE2842FDb3B492f8a0E",
+  "accounts": {
+    "obligee": "0xaB37C2D043e76081A985278b1752784601B92453",
+    "obligor": "0x0113eafF77C7d7B3C247BC013781eC3F920E7913"
+  },
+  "steps": [
+    {
+      "step": "obligation 2 opened by a new obligee: three excuses",
+      "method": "open",
+      "from": "0xaB37C2D043e76081A985278b1752784601B92453",
+      "tx": "0x0be9848e328d9113b424b559f724034b6d762276bc33e2045258fa9eba76afc8",
+      "status": "ACCEPTED",
+      "ok": true,
+      "refusal": ""
+    },
+    {
+      "step": "the obligee tries to claim",
+      "method": "claim",
+      "from": "0xaB37C2D043e76081A985278b1752784601B92453",
+      "tx": "0xa196834cad9fd93136743d0e442af3a83d8dbf4efe82b13a4d36d2f2f5db4608",
+      "status": "ACCEPTED",
+      "ok": false,
+      "refusal": "[EXPECTED] only the obligor may claim an excuse"
+    },
+    {
+      "step": "a new obligor claims: a storm flooded the print works",
+      "method": "claim",
+      "from": "0x0113eafF77C7d7B3C247BC013781eC3F920E7913",
+      "tx": "0xac5b9bd1233499c10126060da940b25707b2b0b5598a2f03f2ca362f31d4a255",
+      "status": "ACCEPTED",
+      "ok": true,
+      "refusal": ""
+    },
+    {
+      "step": "ruled: both orders (expected excuse 2)",
+      "method": "rule",
+      "from": "0xaB37C2D043e76081A985278b1752784601B92453",
+      "tx": "0x62119cc924bd314d9a918b2145acff8494b43bfe2405dd317c57eb1de05069cf",
+      "status": "ACCEPTED",
+      "ok": true,
+      "refusal": ""
+    },
+    {
+      "step": "the obligor tries to acknowledge the work",
+      "method": "fulfil",
+      "from": "0x0113eafF77C7d7B3C247BC013781eC3F920E7913",
+      "tx": "0x8685382b763a5a8032e410d14f4c48494d6b8709bfb981b2aea484c2a254d606",
+      "status": "ACCEPTED",
+      "ok": false,
+      "refusal": "[EXPECTED] only the obligee may acknowledge the work"
+    },
+    {
+      "step": "obligation 2 kept",
+      "method": "fulfil",
+      "from": "0xaB37C2D043e76081A985278b1752784601B92453",
+      "tx": "0x92dfb61ac1fdad224cbac83b3f9bbae6c28141d9cc5592ab872f0a4cf5e979a3",
+      "status": "ACCEPTED",
+      "ok": true,
+      "refusal": ""
+    }
+  ],
+  "obligations": {
+    "2": {
+      "obligation": {
+        "claims": 1,
+        "closed_at": "2026-09-26T16:12:33Z",
+        "days_extended": 5,
+        "due_at": "2026-10-01T17:11:20Z",
+        "duty": "Deliver 1200 printed menus to the festival office before the gates open.",
+        "grace_ends": "2026-10-01T17:16:20Z",
+        "obligee": "0xaB37C2D043e76081A985278b1752784601B92453",
+        "obligor": "0x0113eafF77C7d7B3C247BC013781eC3F920E7913",
+        "opened_at": "2026-09-26T16:11:20Z",
+        "pending": false,
+        "status": "kept",
+        "title": "Printed menus for the Harbour food festival"
+      },
+      "excuses": [
+        {
+          "days": 3,
+          "index": 0,
+          "obligation": 2,
+          "text": "a strike or blockade that stops carriers serving the delivery route",
+          "used_by": 0
+        },
+        {
+          "days": 2,
+          "index": 1,
+          "obligation": 2,
+          "text": "an order of a public authority that closes the venue or the route",
+          "used_by": 0
+        },
+        {
+          "days": 5,
+          "index": 2,
+          "obligation": 2,
+          "text": "a fire, flood or storm that damages the goods or the print works",
+          "used_by": 1
+        }
+      ],
+      "claims": [
+        {
+          "account": "A storm flooded the print works on the night of 2 May. The water damaged the press and ruined the first run of menus, which had to be printed again.",
+          "at": "2026-09-26T16:11:49.954278Z",
+          "by": "0x0113eafF77C7d7B3C247BC013781eC3F920E7913",
+          "days_granted": 5,
+          "id": 2,
+          "obligation": 2,
+          "reason_is_leader_supplied": true,
+          "ruled": true,
+          "ruling": "2",
+          "seq": 1,
+          "why": "The account describes a storm and flooding that damaged the print works and ruined the menus, matching excuse 2 directly."
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "note": "The second round: two new wallets on the already deployed contract. Read by scripts/seed-activity.mjs.",
+  "obligation": {
+    "title": "Printed menus for the Harbour food festival",
+    "duty": "Deliver 1200 printed menus to the festival office before the gates open.",
+    "due_in": 3600,
+    "excuses": [
+      "a strike or blockade that stops carriers serving the delivery route",
+      "an order of a public authority that closes the venue or the route",
+      "a fire, flood or storm that damages the goods or the print works"
+    ],
+    "days": [3, 2, 5]
+  },
+  "claim": "A storm flooded the print works on the night of 2 May. The water damaged the press and ruined the first run of menus, which had to be printed again.",
+  "expected_ruling": "2"
+}
