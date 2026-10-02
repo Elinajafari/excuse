@@ -35,6 +35,14 @@ TARGET = "excuse.py"
 FENCE = '    return str(raw).replace("<", "(").replace(">", ")").replace("[", "(").replace("]", ")")'
 
 MUTATIONS = [
+    # -- the grace window bounds rule() too (a steward review asked for this)
+    ("a claim may be ruled on after its grace window closed",
+     "        if self._now() > closes:", "        if False:"),
+    ("the grace window for a ruling closes a second early",
+     "        if self._now() > closes:", "        if self._now() >= closes:"),
+    ("a late ruling is measured from the deadline alone, ignoring the grace",
+     "        closes = int(o.due_at) + int(self.grace_seconds)", "        closes = int(o.due_at)"),
+
     # -- the answer: an index into the frozen list, or none
     ("a row number past the list is accepted",
      "    if k < 0 or k >= n:\n        return \"\"", "    if k < 0:\n        return \"\""),

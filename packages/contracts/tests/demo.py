@@ -27,6 +27,9 @@ DUE_IN = _DATA["obligation"]["due_in"]
 STRIKE = _DATA["claims"]["strike"]
 ILLNESS = _DATA["claims"]["illness"]
 THIRD = _DATA["claims"]["third"]
+# filed on obligation 1 in time and never ruled on: the grace window runs out,
+# rule() is refused, and the obligation can only lapse
+UNRULED = _DATA["claims"]["unruled"]
 
 SHORT_TITLE = _DATA["short_obligation"]["title"]
 SHORT_DUTY = _DATA["short_obligation"]["duty"]

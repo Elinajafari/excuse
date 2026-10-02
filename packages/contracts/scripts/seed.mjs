@@ -52,10 +52,17 @@ const o = demo.obligation;
 const s = demo.short_obligation;
 const c = demo.claims;
 
-console.log("\ntwo obligations");
+// Wait until obligation 1's clock has passed `at` by a margin: the chain's
+// clock decides, and a step sent early would be recorded as the wrong outcome.
+async function waitPast(at, label) {
+  for (let left = at + 20_000 - Date.now(); left > 0; left = at + 20_000 - Date.now()) {
+    console.log(`  waiting ${Math.ceil(left / 1000)} s for ${label}`);
+    await sleep(Math.min(left, 30_000));
+  }
+}
+
+console.log("\nobligation 0");
 await send(obligee, "open", [o.title, o.duty, obligor.address, o.due_in, joined(o.excuses), joined(o.days)], "obligation 0 opened: three excuses");
-await send(obligee, "open", [s.title, s.duty, obligor.address, s.due_in, joined(o.excuses), joined(o.days)], "obligation 1 opened: five minutes");
-await send(stranger, "lapse", [1], "a breach recorded before the deadline", "refused");
 
 console.log("\nthe first claim: a strike");
 await send(stranger, "claim", [0, c.strike], "a stranger claims an excuse", "refused");
@@ -69,16 +76,17 @@ await send(obligor, "claim", [0, c.strike], "the same account again", "refused")
 await send(obligor, "claim", [0, c.illness], "the obligor claims: staff illness");
 await send(obligor, "rule", [0], "ruled: the unused excuses only");
 await send(obligor, "claim", [0, c.third], "a third claim", "refused");
-
-console.log("\nclosing");
 await send(obligee, "fulfil", [0], "obligation 0 kept");
-// The chain's clock decides a lapse, so wait until the deadline has passed by
-// a margin before sending: a lapse sent early would be refused and recorded.
-const due = Date.parse(plain(await read("obligation", [1])).due_at);
-for (let left = due + 20_000 - Date.now(); left > 0; left = due + 20_000 - Date.now()) {
-  console.log(`  waiting ${Math.ceil(left / 1000)} s for obligation 1's deadline`);
-  await sleep(Math.min(left, 30_000));
-}
+
+console.log("\nobligation 1: a claim filed in time that nobody asks to have ruled on");
+await send(obligee, "open", [s.title, s.duty, obligor.address, s.due_in, joined(o.excuses), joined(o.days)], "obligation 1 opened: five minutes");
+await send(stranger, "lapse", [1], "a breach recorded before the deadline", "refused");
+await send(obligor, "claim", [1, c.unruled], "the obligor claims in time; nobody asks for the ruling");
+const ob1 = plain(await read("obligation", [1]));
+await waitPast(Date.parse(ob1.due_at), "obligation 1's deadline");
+await send(stranger, "lapse", [1], "a breach while the claim's grace window runs", "refused");
+await waitPast(Date.parse(ob1.grace_ends), "obligation 1's grace window to close");
+await send(obligee, "rule", [1], "a ruling after the grace window closed", "refused");
 await send(stranger, "lapse", [1], "obligation 1 breached");
 
 const n = Number(await read("count"));

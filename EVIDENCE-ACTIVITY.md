@@ -4,11 +4,11 @@ Every row below was read back from the chain by `scripts/evidence.mjs`: the
 sender, the status and the outcome come from the node's answer for each hash,
 not from the deployment record. Every outcome on chain matches the record.
 
-- **Contract:** [`0xe6e9B934aF3600665dDCAeE2842FDb3B492f8a0E`](https://explorer-studio.genlayer.com/address/0xe6e9B934aF3600665dDCAeE2842FDb3B492f8a0E)
+- **Contract:** [`0x1331950259A2D0a524543EbD17E6da2892198480`](https://explorer-studio.genlayer.com/address/0x1331950259A2D0a524543EbD17E6da2892198480)
 - **Round:** new wallets on the contract already deployed; no deploy in this round
 - **The deployment itself:** [EVIDENCE.md](EVIDENCE.md)
 - **Transactions:** 6, from 2 different wallets
-- **Generated:** 2026-09-26 16:12 UTC
+- **Generated:** 2026-10-02 19:45 UTC
 
 ## Wallets
 
@@ -17,8 +17,8 @@ anywhere. Click an address to see every transaction it sent.
 
 | Role | Address | Transactions sent |
 |---|---|---|
-| obligee | [`0xaB37C2D043e76081A985278b1752784601B92453`](https://explorer-studio.genlayer.com/address/0xaB37C2D043e76081A985278b1752784601B92453) | 4 |
-| obligor | [`0x0113eafF77C7d7B3C247BC013781eC3F920E7913`](https://explorer-studio.genlayer.com/address/0x0113eafF77C7d7B3C247BC013781eC3F920E7913) | 2 |
+| obligee | [`0x4241DeDB2353e2378048b9a92d718662De5f82ce`](https://explorer-studio.genlayer.com/address/0x4241DeDB2353e2378048b9a92d718662De5f82ce) | 4 |
+| obligor | [`0xa22D0ba31B33Aa250014ff0dc7B21f90d8553AAC`](https://explorer-studio.genlayer.com/address/0xa22D0ba31B33Aa250014ff0dc7B21f90d8553AAC) | 2 |
 
 ## Transactions, in order
 
@@ -27,9 +27,9 @@ agreed on the refusal, and the sentence is the contract's own.
 
 | # | Step | Sent by | Method | On chain | Outcome | Tx |
 |---|---|---|---|---|---|---|
-| 0 | obligation 2 opened by a new obligee: three excuses | obligee [`0xaB37…2453`](https://explorer-studio.genlayer.com/address/0xaB37C2D043e76081A985278b1752784601B92453) | `open` | FINALIZED · MAJORITY_AGREE | executed | [`0x0be9848e…afc8`](https://explorer-studio.genlayer.com/tx/0x0be9848e328d9113b424b559f724034b6d762276bc33e2045258fa9eba76afc8) |
-| 1 | the obligee tries to claim | obligee [`0xaB37…2453`](https://explorer-studio.genlayer.com/address/0xaB37C2D043e76081A985278b1752784601B92453) | `claim` | FINALIZED · MAJORITY_AGREE | refused: only the obligor may claim an excuse | [`0xa196834c…4608`](https://explorer-studio.genlayer.com/tx/0xa196834cad9fd93136743d0e442af3a83d8dbf4efe82b13a4d36d2f2f5db4608) |
-| 2 | a new obligor claims: a storm flooded the print works | obligor [`0x0113…7913`](https://explorer-studio.genlayer.com/address/0x0113eafF77C7d7B3C247BC013781eC3F920E7913) | `claim` | FINALIZED · MAJORITY_AGREE | executed | [`0xac5b9bd1…a255`](https://explorer-studio.genlayer.com/tx/0xac5b9bd1233499c10126060da940b25707b2b0b5598a2f03f2ca362f31d4a255) |
-| 3 | ruled: both orders (expected excuse 2) | obligee [`0xaB37…2453`](https://explorer-studio.genlayer.com/address/0xaB37C2D043e76081A985278b1752784601B92453) | `rule` | FINALIZED · MAJORITY_AGREE | executed | [`0x62119cc9…69cf`](https://explorer-studio.genlayer.com/tx/0x62119cc924bd314d9a918b2145acff8494b43bfe2405dd317c57eb1de05069cf) |
-| 4 | the obligor tries to acknowledge the work | obligor [`0x0113…7913`](https://explorer-studio.genlayer.com/address/0x0113eafF77C7d7B3C247BC013781eC3F920E7913) | `fulfil` | ACCEPTED · MAJORITY_AGREE | refused: only the obligee may acknowledge the work | [`0x8685382b…d606`](https://explorer-studio.genlayer.com/tx/0x8685382b763a5a8032e410d14f4c48494d6b8709bfb981b2aea484c2a254d606) |
-| 5 | obligation 2 kept | obligee [`0xaB37…2453`](https://explorer-studio.genlayer.com/address/0xaB37C2D043e76081A985278b1752784601B92453) | `fulfil` | ACCEPTED · MAJORITY_AGREE | executed | [`0x92dfb61a…79a3`](https://explorer-studio.genlayer.com/tx/0x92dfb61ac1fdad224cbac83b3f9bbae6c28141d9cc5592ab872f0a4cf5e979a3) |
+| 0 | obligation 2 opened by a new obligee: three excuses | obligee [`0x4241…82ce`](https://explorer-studio.genlayer.com/address/0x4241DeDB2353e2378048b9a92d718662De5f82ce) | `open` | FINALIZED · MAJORITY_AGREE | executed | [`0xab848140…e149`](https://explorer-studio.genlayer.com/tx/0xab848140232da84efc5ebf1e5d44da2ebb1d041711cfb9a66169fede3a72e149) |
+| 1 | the obligee tries to claim | obligee [`0x4241…82ce`](https://explorer-studio.genlayer.com/address/0x4241DeDB2353e2378048b9a92d718662De5f82ce) | `claim` | FINALIZED · MAJORITY_AGREE | refused: only the obligor may claim an excuse | [`0x1ad692a5…4930`](https://explorer-studio.genlayer.com/tx/0x1ad692a59ecb22ddabdbee8500aa214701b473dbb58eebf3194d9bf244334930) |
+| 2 | a new obligor claims: a storm flooded the print works | obligor [`0xa22D…3AAC`](https://explorer-studio.genlayer.com/address/0xa22D0ba31B33Aa250014ff0dc7B21f90d8553AAC) | `claim` | FINALIZED · MAJORITY_AGREE | executed | [`0x39c054ee…083a`](https://explorer-studio.genlayer.com/tx/0x39c054ee70ecd45d1ed78cdafd88a371bd9d6cdb878f0f0f02ee88f50c35083a) |
+| 3 | ruled: both orders (expected excuse 2) | obligee [`0x4241…82ce`](https://explorer-studio.genlayer.com/address/0x4241DeDB2353e2378048b9a92d718662De5f82ce) | `rule` | FINALIZED · MAJORITY_AGREE | executed | [`0x7e543767…0ab2`](https://explorer-studio.genlayer.com/tx/0x7e5437676b5a00ca5b23cf76db046dc820a9c57b47d950dbb08d36d659720ab2) |
+| 4 | the obligor tries to acknowledge the work | obligor [`0xa22D…3AAC`](https://explorer-studio.genlayer.com/address/0xa22D0ba31B33Aa250014ff0dc7B21f90d8553AAC) | `fulfil` | ACCEPTED · MAJORITY_AGREE | refused: only the obligee may acknowledge the work | [`0x4e795383…027c`](https://explorer-studio.genlayer.com/tx/0x4e7953839f40bcb641ec826545821e5031f74dd0feaa365f048a80523e1f027c) |
+| 5 | obligation 2 kept | obligee [`0x4241…82ce`](https://explorer-studio.genlayer.com/address/0x4241DeDB2353e2378048b9a92d718662De5f82ce) | `fulfil` | ACCEPTED · MAJORITY_AGREE | executed | [`0x026af35b…b1a3`](https://explorer-studio.genlayer.com/tx/0x026af35b4172cc4e8aa3ca6aacfc8c323c12ead0057d86f5426402a11c59b1a3) |

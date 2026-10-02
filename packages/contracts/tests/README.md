@@ -62,14 +62,15 @@ Four wallets, one role each, all made in memory for the run:
 | Wallet | Does |
 |---|---|
 | deployer | deploys the contract, nothing else |
-| obligee | opens both obligations, asks for the first ruling, acknowledges the work |
+| obligee | opens both obligations, asks for the first ruling, acknowledges the work, asks for a ruling too late |
 | obligor | files the claims, asks for the second ruling, tries the claims it may not make |
 | stranger | tries to claim, to rule and to lapse early, then records the real breach, which anyone may |
 
 Obligation 0 is a catalogue delivery due in an hour with three excuses: a
 strike that stops carriers (3 days), a public authority's order (2 days), and a
 fire, flood or storm (5 days). Obligation 1 has the same excuses and is due in
-five minutes; nobody claims on it.
+five minutes; the obligor claims on it in time, and nobody asks for the ruling
+until the grace window has closed.
 
 Every transaction, in order, and what it proves. The expected outcome is part
 of the script: if the chain does anything else, the run stops, because the
@@ -79,22 +80,26 @@ record claims whatever it holds.
 |---|---|---|---|---|
 | 0 | deployer | deploy (grace 300 s) | deployed | the file deploys as it is; its sha256 is recorded |
 | 1 | obligee | `open` obligation 0 | executed | three excuses and their days are frozen |
-| 2 | obligee | `open` obligation 1 | executed | a five-minute deadline starts |
-| 3 | stranger | `lapse(1)` | refused | a breach cannot be recorded before the deadline |
-| 4 | stranger | `claim(0, strike)` | refused | only the obligor may claim |
-| 5 | obligor | `claim(0, strike)` | executed | the account is on the record, with the chain's time, before any model reads it |
-| 6 | obligor | `claim(0, illness)` | refused | one claim at a time |
-| 7 | stranger | `rule(0)` | refused | only the parties may ask for a ruling |
-| 8 | obligee | `rule(0)` | **excuse 0, +3 days** | validators, in both orders, name the strike excuse; the deadline moves by its frozen 3 days |
-| 9 | obligor | `claim(0, strike)` again | refused | an account already ruled on cannot be filed again |
-| 10 | obligor | `claim(0, illness)` | executed | the second and last claim |
-| 11 | obligor | `rule(0)` | **none, +0 days** | the obligor's own staff illness is no listed excuse; only the unused excuses were asked |
-| 12 | obligor | `claim(0, third)` | refused | at most two claims |
-| 13 | obligee | `fulfil(0)` | **kept** | the obligee acknowledges the work |
-| 14 | stranger | `lapse(1)` after the deadline | **breached** | anyone may record what the clock implies |
+| 2 | stranger | `claim(0, strike)` | refused | only the obligor may claim |
+| 3 | obligor | `claim(0, strike)` | executed | the account is on the record, with the chain's time, before any model reads it |
+| 4 | obligor | `claim(0, illness)` | refused | one claim at a time |
+| 5 | stranger | `rule(0)` | refused | only the parties may ask for a ruling |
+| 6 | obligee | `rule(0)` | **excuse 0, +3 days** | validators, in both orders, name the strike excuse; the deadline moves by its frozen 3 days |
+| 7 | obligor | `claim(0, strike)` again | refused | an account already ruled on cannot be filed again |
+| 8 | obligor | `claim(0, illness)` | executed | the second and last claim |
+| 9 | obligor | `rule(0)` | **none, +0 days** | the obligor's own staff illness is no listed excuse; only the unused excuses were asked |
+| 10 | obligor | `claim(0, third)` | refused | at most two claims |
+| 11 | obligee | `fulfil(0)` | **kept** | the obligee acknowledges the work |
+| 12 | obligee | `open` obligation 1 | executed | a five-minute deadline starts |
+| 13 | stranger | `lapse(1)` | refused | a breach cannot be recorded before the deadline |
+| 14 | obligor | `claim(1, wind)` | executed | a claim filed in time; nobody asks for its ruling |
+| 15 | stranger | `lapse(1)` after the deadline | refused | the claim filed in time protects the obligation while its grace window runs |
+| 16 | obligee | `rule(1)` after the grace window | **refused** | the claim expired with its grace window: no late ruling can extend the deadline, and no model is asked |
+| 17 | stranger | `lapse(1)` | **breached** | the only route left; anyone may record what the clock implies |
 
-Before step 14 the script reads obligation 1's deadline from the chain and
-waits until it has passed by 20 seconds. The seed then reads every obligation,
+Before step 15 the script reads obligation 1's deadline from the chain and
+waits until it has passed by 20 seconds; before step 16, the same for the end
+of its grace window. The seed then reads every obligation,
 excuse and claim back from the chain into
 [`deployments/studionet.json`](../deployments/studionet.json).
 

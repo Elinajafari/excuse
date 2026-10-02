@@ -21,7 +21,8 @@ each excuse is used at most once; at most 2 claims, one at a time
 ```
 obligee:  open(title, duty, obligor, due_in, excuses, days)   excuses and days frozen
 obligor:  claim(id, account)        before the deadline; on the record with the chain's time
-either:   rule(id)                  [validators, both orders] -> excuse index or none -> deadline moves
+either:   rule(id)                  until due_at + grace: [validators, both orders] -> excuse index or none -> deadline moves
+                                    after it: refused before any model; the claim has expired with its grace
 obligee:  fulfil(id)                -> kept
 anyone:   lapse(id)                 -> breached, once the deadline (and any grace for a waiting claim) has passed
 anyone:   count, status, obligation, excuses_of, claims_of
@@ -31,7 +32,10 @@ Judgment fails **closed**: an unusable model answer is retried once inside
 the block and then raised as `[LLM_ERROR]`, which no validator agrees with.
 It never moves a deadline. A claim filed in time protects the obligation only
 until its ruling or the grace window (frozen at deploy) runs out, so a ruling
-that never lands cannot hold an obligation open forever.
+that never lands cannot hold an obligation open forever. Once the grace window
+has run out, `rule()` refuses for free, before any model is asked: a late
+ruling can never extend a deadline whose protection is over, and `lapse()` is
+the only route left.
 
 ## Deploy
 
@@ -115,6 +119,7 @@ That uncertainty goes into the value (no extension), never into the comparison.
 | The obligor's own trouble passed off as force majeure | the prompt says so, and the demo's illness claim is ruled `none` on chain |
 | Refiling the same account until it wins | an account already ruled on is refused; at most 2 claims, one at a time |
 | A claim nobody rules on, holding the obligation open | the grace window: after it, anyone may `lapse()` |
+| A ruling asked for after the grace window, reopening an expired deadline | `rule()` refuses once `due_at + grace_seconds` has passed, before any model; only `lapse()` remains |
 | A stranger claiming, ruling or closing | every gated write checks the sender; a static test walks the source for it |
 | Prompt injection inside an account or an excuse | `fence()` replaces `< > [ ]` at the prompt boundary and the contract numbers the rows itself |
 | A script reports "done" when the contract refused | success is the leader's `return`, not `ACCEPTED`; a `rollback` is recorded with the contract's own sentence |
@@ -122,7 +127,7 @@ That uncertainty goes into the value (no extension), never into the comparison.
 ## Tests
 
 <!-- measured:tests:start -->
-Measured: **142 passed**, 0 skipped, including the checks of the live record in `deployments/studionet.json`, which run once `pnpm seed:contract` has written it. The same record is checked against the chain itself by `pnpm e2e:contract`.
+Measured: **148 passed**, 0 skipped, including the checks of the live record in `deployments/studionet.json`, which run once `pnpm seed:contract` has written it. The same record is checked against the chain itself by `pnpm e2e:contract`.
 <!-- measured:tests:end -->
 
 The suite runs on [`tests/glsim.py`](tests/glsim.py), a small GenVM stand-in
@@ -136,10 +141,13 @@ defence one at a time and names the test that caught each mutant. It refuses to
 run on a red baseline and exits non-zero if anything escapes.
 
 <!-- measured:mutations:start -->
-Measured: **65 mutations, 65 caught, 0 escaped.**
+Measured: **68 mutations, 68 caught, 0 escaped.**
 
 | Mutation | Caught by |
 |---|---|
+| a claim may be ruled on after its grace window closed | `test_a_ruling_after_the_grace_window_is_refused_for_free_and_moves_nothing` |
+| the grace window for a ruling closes a second early | `test_a_ruling_on_the_last_second_of_the_grace_window_still_lands` |
+| a late ruling is measured from the deadline alone, ignoring the grace | `test_a_ruling_may_land_after_the_deadline_for_a_claim_filed_before_it` |
 | a row number past the list is accepted | `test_an_unusable_answer_is_an_error_and_never_a_ruling` |
 | a word is read as a row number | `test_an_unusable_answer_is_an_error_and_never_a_ruling` |
 | none is not recognised as an answer | `test_none_moves_nothing` |
@@ -177,13 +185,13 @@ Measured: **65 mutations, 65 caught, 0 escaped.**
 | claims are not linked | `IndentationError at import` |
 | the account is unbounded | `test_the_account_length_bounds` |
 | anyone may ask for a ruling | `test_a_stranger_may_not_ask_for_a_ruling` |
-| a ruling may run with nothing waiting | `test_nothing_to_rule_on_is_refused` |
+| a ruling may run with nothing waiting | `test_a_ruling_after_the_grace_window_is_refused_for_free_and_moves_nothing` |
 | anyone may acknowledge the work | `test_only_the_obligee_may_acknowledge` |
 | the work can be acknowledged twice | `test_the_obligee_acknowledges_the_work` |
 | a breach is recorded before the deadline | `test_a_breach_is_recorded_only_after_the_deadline` |
 | a breach is recorded on the deadline itself | `test_a_breach_is_recorded_only_after_the_deadline` |
 | a waiting claim gives no protection | `test_a_claim_in_time_protects_until_its_ruling_or_the_grace_window` |
-| a waiting claim protects forever | `test_a_claim_in_time_protects_until_its_ruling_or_the_grace_window` |
+| a waiting claim protects forever | `test_a_ruling_after_the_grace_window_is_refused_for_free_and_moves_nothing` |
 | a closed obligation can lapse | `test_a_breach_is_recorded_only_after_the_deadline` |
 | a negative id reads the newest obligation | `test_a_read_with_a_bad_id_is_a_user_error` |
 | more than six excuses are accepted | `test_the_excuse_bounds` |
@@ -210,38 +218,42 @@ Measured: **65 mutations, 65 caught, 0 escaped.**
 ## Verified against the live deployment
 
 <!-- measured:deployment:start -->
-Deployed on studionet at [`0xe6e9B934aF3600665dDCAeE2842FDb3B492f8a0E`](https://explorer-studio.genlayer.com/address/0xe6e9B934aF3600665dDCAeE2842FDb3B492f8a0E) (deploy [`0x30ae8fac...`](https://explorer-studio.genlayer.com/tx/0x30ae8facf363d87c32bd17fb25629ac88ead35f6aefadb0519d291c79b1587e2)), with a grace window of 300 s. Every value below was read back from the chain by `scripts/seed.mjs` and written to [`deployments/studionet.json`](deployments/studionet.json); none of it is typed by hand.
+Deployed on studionet at [`0x1331950259A2D0a524543EbD17E6da2892198480`](https://explorer-studio.genlayer.com/address/0x1331950259A2D0a524543EbD17E6da2892198480) (deploy [`0x25a21cbd...`](https://explorer-studio.genlayer.com/tx/0x25a21cbde6bc735cada855e97852316f9447c9569f20bca4b30d5892135f1efc)), with a grace window of 300 s. Every value below was read back from the chain by `scripts/seed.mjs` and written to [`deployments/studionet.json`](deployments/studionet.json); none of it is typed by hand.
 
 | Obligation | Status | Days extended | Deadline now |
 |---|---|---|---|
-| 0: Catalogue delivery for the Harbour trade fair | kept | 3 | 2026-09-27T13:52:19Z |
-| 1: Stand signage for the Harbour trade fair | breached | 0 | 2026-09-24T12:57:36Z |
+| 0: Catalogue delivery for the Harbour trade fair | kept | 3 | 2026-10-05T20:29:11Z |
+| 1: Stand signage for the Harbour trade fair | breached | 0 | 2026-10-02T19:37:57Z |
 
 Every claim, and what the validators ruled:
 
 | Obligation | Claim | Ruling | Days | Reason the leader gave (not consensus) |
 |---|---|---|---|---|
-| 0 | A national port strike began on 3 March and stopped every carrier serving the Rotterdam de... | excuse 0: a strike or blockade that stops carriers serving the delivery route | 3 | The account describes a strike stopping carriers serving the delivery route. |
-| 0 | Our print supervisor was ill for a week in February, so the second print run started late ... | none | 0 | Staff illness is not listed as an excuse; the delay was due to internal personnel issues rather than authorities or natural disasters. |
+| 0 | A national port strike began on 3 March and stopped every carrier serving the Rotterdam de... | excuse 0: a strike or blockade that stops carriers serving the delivery route | 3 | It describes a port strike stopping every carrier serving the Rotterdam delivery route for two days. |
+| 0 | Our print supervisor was ill for a week in February, so the second print run started late ... | none | 0 | Illness of staff caused delay, not covered by listed excuses |
+| 1 | Strong winds closed the access road to the fairground for an afternoon, and the sign insta... | never ruled: the grace window closed first, and rule() refused | 0 |  |
 
 Every transaction, in order, refusals included:
 
 | Step | Outcome | Transaction |
 |---|---|---|
-| obligation 0 opened: three excuses | ok | [`0xde4b3eb4...`](https://explorer-studio.genlayer.com/tx/0xde4b3eb4d6d66ff316b939cd2172bb13f2da991c29a8e6747a282ac5da9074cf) |
-| obligation 1 opened: five minutes | ok | [`0x11e30856...`](https://explorer-studio.genlayer.com/tx/0x11e30856422e6cdec5a839ffc24eb0ab6df89d457745ab329105f8d0307d1cec) |
-| a breach recorded before the deadline | refused: the deadline is 2026-09-24T12:57:36Z | [`0x11ddac12...`](https://explorer-studio.genlayer.com/tx/0x11ddac122bb799d528531090581c4831c3d9686f08ae944fb6dc107f1af0d36d) |
-| a stranger claims an excuse | refused: only the obligor may claim an excuse | [`0x5cdb2fcf...`](https://explorer-studio.genlayer.com/tx/0x5cdb2fcf96f0856e2ceac8fd7804f31f6c84cdda9dab0b892bae59ed15e0ac6b) |
-| the obligor claims: a port strike | ok | [`0x559d582c...`](https://explorer-studio.genlayer.com/tx/0x559d582c4665721b0041e2efc056d6fe0965b65c63f00646503978659a756599) |
-| a second claim while one waits | refused: a claim is waiting for its ruling; either party may ask for it | [`0xee29ddcd...`](https://explorer-studio.genlayer.com/tx/0xee29ddcd575794d36d812497cb770ec7edc8b8a9ee47613f8561f9aea00f6abd) |
-| a stranger asks for the ruling | refused: only the obligee or the obligor may ask for a ruling | [`0xe06842ec...`](https://explorer-studio.genlayer.com/tx/0xe06842ec8b22317096fcbce7527531924977d670a251d361ab3a3aa5b6839fbb) |
-| ruled: both orders, every excuse | ok | [`0x600e96be...`](https://explorer-studio.genlayer.com/tx/0x600e96be67ee3e410d029ca43152c1b55365f46d720844b94d1272d692b56962) |
-| the same account again | refused: this account was already ruled on; a new claim has to describe the event differently | [`0x33667f8c...`](https://explorer-studio.genlayer.com/tx/0x33667f8c90711d3949e49a72b472af190b640a967bf1fb628910fb2a8928e547) |
-| the obligor claims: staff illness | ok | [`0xc32246fd...`](https://explorer-studio.genlayer.com/tx/0xc32246fd7e1f99fa79f1adb4cb7f6cbb46bad054683703e321b6e4d8ab4bae49) |
-| ruled: the unused excuses only | ok | [`0xd0ec2c51...`](https://explorer-studio.genlayer.com/tx/0xd0ec2c5106e4dd4d359c3dd2a4c20b7f8705bbc37bbc8976f537a3f3cbd80e2c) |
-| a third claim | refused: an obligation takes at most 2 claims | [`0x69e2c39d...`](https://explorer-studio.genlayer.com/tx/0x69e2c39d882d87f6eb8138dcffa5f8e89cf36131970e099a17fa130e17f43438) |
-| obligation 0 kept | ok | [`0xd1d68c3c...`](https://explorer-studio.genlayer.com/tx/0xd1d68c3c4822f065a04d0d53f65982036a72e450f6a9ed16e4e15983b39123b3) |
-| obligation 1 breached | ok | [`0xab55842f...`](https://explorer-studio.genlayer.com/tx/0xab55842f0ccdcd167f28798f1acfdd4c21c60c02279c097890e66222c43d0667) |
+| obligation 0 opened: three excuses | ok | [`0x9983d759...`](https://explorer-studio.genlayer.com/tx/0x9983d759be04b6328a0216e82c7776db53ce6ef3f97f506c595d8118a444d9f6) |
+| a stranger claims an excuse | refused: only the obligor may claim an excuse | [`0x782fb119...`](https://explorer-studio.genlayer.com/tx/0x782fb119b0623003c8a22e290bcbdc61d05d45e02542dbb2a44fb1133e30c4ba) |
+| the obligor claims: a port strike | ok | [`0x0d9a74a3...`](https://explorer-studio.genlayer.com/tx/0x0d9a74a398335d1873e747e5c43c7db8a2338ab9fb92eb332c8a8bf22e0b60b7) |
+| a second claim while one waits | refused: a claim is waiting for its ruling; either party may ask for it | [`0xc62b2b89...`](https://explorer-studio.genlayer.com/tx/0xc62b2b895b0e5878146921f1bc64096d1c8ca3c27eef7569e6699b460ffcae10) |
+| a stranger asks for the ruling | refused: only the obligee or the obligor may ask for a ruling | [`0xf0dab9ce...`](https://explorer-studio.genlayer.com/tx/0xf0dab9cee6385cfcfd8df446a3644f1db6176f821c4a5851fc7cdbe8014f8e98) |
+| ruled: both orders, every excuse | ok | [`0xda1149c9...`](https://explorer-studio.genlayer.com/tx/0xda1149c9694840f36292ae801337b324a6c844d9b590234f9ac67db854429a6b) |
+| the same account again | refused: this account was already ruled on; a new claim has to describe the event differently | [`0x519eb10d...`](https://explorer-studio.genlayer.com/tx/0x519eb10d7ee9cb716c97e641e8cf5e534cd3bcd93699d75d9386c760d7c48ec2) |
+| the obligor claims: staff illness | ok | [`0xc1286853...`](https://explorer-studio.genlayer.com/tx/0xc1286853b99cab283065e9f60566f71ed00ac04b248c456015394260487c6598) |
+| ruled: the unused excuses only | ok | [`0x57e23a0b...`](https://explorer-studio.genlayer.com/tx/0x57e23a0bde1986d49733ccec22ebaf27c9b1e05492c6284cec3ac5346549c564) |
+| a third claim | refused: an obligation takes at most 2 claims | [`0x9ca55228...`](https://explorer-studio.genlayer.com/tx/0x9ca55228c8e1e8f85354560199e4c8b63c686729e6e16a1444423fb47a92b204) |
+| obligation 0 kept | ok | [`0xe3336652...`](https://explorer-studio.genlayer.com/tx/0xe3336652df79b70c78e665524d57d1c9b7b4affd1ca5288e1f37ab39c189a177) |
+| obligation 1 opened: five minutes | ok | [`0x411ef964...`](https://explorer-studio.genlayer.com/tx/0x411ef964376a0f51f1e8bcc80f4084acc0bbef6969067c552eeaaac0547fdd1c) |
+| a breach recorded before the deadline | refused: the deadline is 2026-10-02T19:37:57Z | [`0x4a3c8ed7...`](https://explorer-studio.genlayer.com/tx/0x4a3c8ed73c7a5dfeb6fa2a2cc5ccc400644564ca0b5650c0b635777672b3922f) |
+| the obligor claims in time; nobody asks for the ruling | ok | [`0xf3adc00c...`](https://explorer-studio.genlayer.com/tx/0xf3adc00cecc19739c0b1ec5c4c19efae807f932f5271a4f55ab7caaeaf1f049e) |
+| a breach while the claim's grace window runs | refused: a claim filed in time is waiting for its ruling until 2026-10-02T19:42:57Z | [`0x7d57dc42...`](https://explorer-studio.genlayer.com/tx/0x7d57dc42519ee4e79fde06aec06ec454e32f498673752bb555e487518605630c) |
+| a ruling after the grace window closed | refused: the grace window for the waiting claim closed at 2026-10-02T19:42:57Z; it can no longer be ruled on, and the obligation can only lapse | [`0x07b1914c...`](https://explorer-studio.genlayer.com/tx/0x07b1914c570c346b72ca577070d21324636b159d7b67c4176bc48d719a5fb3a0) |
+| obligation 1 breached | ok | [`0x43ef9458...`](https://explorer-studio.genlayer.com/tx/0x43ef9458b3560eba7aa52e41241bc19867437dd85e37410c292246afcac97b9a) |
 
 `tests/test_runbook.py::TestTheRecord` replays these rulings through this repository's contract and fails unless it moves every deadline exactly as the deployed one did.
 <!-- measured:deployment:end -->

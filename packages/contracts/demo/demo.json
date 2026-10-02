@@ -23,7 +23,8 @@
   "claims": {
     "strike": "A national port strike began on 3 March and stopped every carrier serving the Rotterdam delivery route for two days. The printed catalogues sat at the depot until the strike ended.",
     "illness": "Our print supervisor was ill for a week in February, so the second print run started late and the catalogues left the print works four days behind schedule.",
-    "third": "The courier we booked cancelled at short notice and the replacement could not collect the catalogues until the following morning."
+    "third": "The courier we booked cancelled at short notice and the replacement could not collect the catalogues until the following morning.",
+    "unruled": "Strong winds closed the access road to the fairground for an afternoon, and the sign installers could not reach stand B12 until the next morning."
   },
   "expected_rulings": [
     "0",

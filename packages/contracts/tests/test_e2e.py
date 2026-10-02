@@ -222,6 +222,46 @@ class TestRule(Base):
         self.rule(c, ruling(NAMES, "2"))
         assert self.due(c) == T0 + D.DUE_IN + 5 * 86400
 
+    def test_a_ruling_on_the_last_second_of_the_grace_window_still_lands(self):
+        c = self.deploy()
+        at(D.DUE_IN - 10)
+        self.claim(c)
+        at(D.DUE_IN + GRACE)
+        self.rule(c, ruling(NAMES, "0"))
+        assert self.due(c) == T0 + D.DUE_IN + 3 * 86400
+
+    @pytest.mark.parametrize("who", [OBLIGEE, OBLIGOR])
+    def test_a_ruling_after_the_grace_window_is_refused_for_free_and_moves_nothing(self, who):
+        """The claim was filed in time, but nobody asked for its ruling before
+        the grace window ran out. A ruling now would extend a deadline whose
+        protection is over, so it is refused before any model is asked, and
+        lapse() is the only route left."""
+        c = self.deploy()
+        at(D.DUE_IN - 10)
+        self.claim(c)
+        at(D.DUE_IN + GRACE + 1)
+        with pytest.raises(S.UserError, match="grace window for the waiting claim closed at"):
+            self.rule(c, ruling(NAMES, "0"), who=who)
+        assert S.RT.leader_env.prompt_calls == [] and S.RT.validator_env.prompt_calls == []
+        ob = c.obligation(0)
+        assert ob["due_at"] == M.iso(T0 + D.DUE_IN) and ob["days_extended"] == 0 and ob["pending"] is True
+        assert [x["used_by"] for x in c.excuses_of(0)["excuses"]] == [0, 0, 0]
+        assert [x["ruled"] for x in c.claims_of(0)["claims"]] == [False]
+        self.as_(STRANGER, c, "lapse", 0)
+        assert c.status(0) == "breached" and c.obligation(0)["days_extended"] == 0
+        with pytest.raises(S.UserError, match="no claim is waiting"):
+            self.rule(c, ruling(NAMES, "0"), who=who)
+
+    def test_a_late_ruling_cannot_reopen_a_deadline_however_late_it_is(self):
+        """A month later is no different from a second later."""
+        c = self.deploy()
+        at(D.DUE_IN - 10)
+        self.claim(c)
+        at(D.DUE_IN + GRACE + 30 * 86400)
+        with pytest.raises(S.UserError, match="can no longer be ruled on"):
+            self.rule(c, ruling(NAMES, "0"))
+        assert self.due(c) == T0 + D.DUE_IN
+
     @pytest.mark.parametrize("who", [OBLIGEE, OBLIGOR])
     def test_either_party_may_ask_for_a_ruling(self, who):
         c = self.deploy()

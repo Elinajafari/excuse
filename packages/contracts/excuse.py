@@ -49,12 +49,15 @@ THE STATE MACHINE
     A claim filed in time protects the obligation from lapsing until it is
     ruled on, or until the grace window (frozen at deploy) after the deadline
     runs out, whichever comes first, so a ruling that never lands cannot hold
-    the obligation open forever.
+    the obligation open forever. Once the grace window has run out, the claim
+    has expired with it: rule() refuses, so no late ruling can extend a
+    deadline whose protection is over, and lapse() is the only route left.
 
 WHO MAY WRITE
         open(...)          anyone. The caller becomes the obligee.
         claim(id, text)    the obligor alone, before the deadline.
-        rule(id)           the obligee or the obligor.
+        rule(id)           the obligee or the obligor, until the grace window
+                           after the deadline closes.
         fulfil(id)         the obligee alone.
         lapse(id)          anyone, deliberately. It adds no text, reads no
                            model, and can only record what the clock already
@@ -480,6 +483,16 @@ class Excuse(gl.Contract):
             raise gl.vm.UserError(f"{ERR_EXPECTED} only the obligee or the obligor may ask for a ruling")
         if str(o.status) != OPEN or not bool(o.pending):
             raise gl.vm.UserError(f"{ERR_EXPECTED} no claim is waiting for a ruling")
+        # A claim filed in time is protected until its ruling OR until the
+        # grace window runs out, whichever comes first. Past it, the claim has
+        # expired: a ruling here could still move a deadline whose protection
+        # is over, so it is refused before any model is asked, and lapse() is
+        # the only route left. Decided by the chain's clock, so every node
+        # refuses the same transaction.
+        closes = int(o.due_at) + int(self.grace_seconds)
+        if self._now() > closes:
+            raise gl.vm.UserError(f"{ERR_EXPECTED} the grace window for the waiting claim closed at {iso(closes)}; "
+                                  f"it can no longer be ruled on, and the obligation can only lapse")
 
         # Everything the block needs, as plain values, before the block.
         title = str(o.title)

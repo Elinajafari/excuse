@@ -1,56 +1,38 @@
 {
   "network": "studionet",
   "chain_id": 61999,
-  "contract": "0xe6e9B934aF3600665dDCAeE2842FDb3B492f8a0E",
-  "explorer": "https://explorer-studio.genlayer.com/address/0xe6e9B934aF3600665dDCAeE2842FDb3B492f8a0E",
-  "source_sha256": "7e89c8270b525a5936c641c28a3d5fdc8f9e4f85980572ad5d570c4dbdc8ccb8",
+  "contract": "0x1331950259A2D0a524543EbD17E6da2892198480",
+  "explorer": "https://explorer-studio.genlayer.com/address/0x1331950259A2D0a524543EbD17E6da2892198480",
+  "source_sha256": "95fbe031d6cd4d127bb75460d894e32ed8608c4261956ce6e33f69b75e6ffa53",
   "constructor": {
     "grace_seconds": 300
   },
-  "deployer": "0x7341Bc21D4a09756b98f1B90E0df13Ed05002623",
+  "deployer": "0x6F17364B4495ee8A34f2FA6195a492b956748dd9",
   "steps": [
     {
       "step": "deploy",
       "method": "deploy",
-      "from": "0x7341Bc21D4a09756b98f1B90E0df13Ed05002623",
-      "tx": "0x30ae8facf363d87c32bd17fb25629ac88ead35f6aefadb0519d291c79b1587e2",
+      "from": "0x6F17364B4495ee8A34f2FA6195a492b956748dd9",
+      "tx": "0x25a21cbde6bc735cada855e97852316f9447c9569f20bca4b30d5892135f1efc",
       "status": "ACCEPTED",
       "ok": true,
       "refusal": "",
-      "address": "0xe6e9B934aF3600665dDCAeE2842FDb3B492f8a0E"
+      "address": "0x1331950259A2D0a524543EbD17E6da2892198480"
     },
     {
       "step": "obligation 0 opened: three excuses",
       "method": "open",
-      "from": "0x158B835C873846519b2AfE0Ae04Db240912CE64f",
-      "tx": "0xde4b3eb4d6d66ff316b939cd2172bb13f2da991c29a8e6747a282ac5da9074cf",
+      "from": "0x3c1581EDa3F7Bb375ca44816CD6255AB091A8CD7",
+      "tx": "0x9983d759be04b6328a0216e82c7776db53ce6ef3f97f506c595d8118a444d9f6",
       "status": "ACCEPTED",
       "ok": true,
       "refusal": ""
-    },
-    {
-      "step": "obligation 1 opened: five minutes",
-      "method": "open",
-      "from": "0x158B835C873846519b2AfE0Ae04Db240912CE64f",
-      "tx": "0x11e30856422e6cdec5a839ffc24eb0ab6df89d457745ab329105f8d0307d1cec",
-      "status": "ACCEPTED",
-      "ok": true,
-      "refusal": ""
-    },
-    {
-      "step": "a breach recorded before the deadline",
-      "method": "lapse",
-      "from": "0x95157172Ba509A6489504A6e06A9227e83cB9c12",
-      "tx": "0x11ddac122bb799d528531090581c4831c3d9686f08ae944fb6dc107f1af0d36d",
-      "status": "ACCEPTED",
-      "ok": false,
-      "refusal": "[EXPECTED] the deadline is 2026-09-24T12:57:36Z"
     },
     {
       "step": "a stranger claims an excuse",
       "method": "claim",
-      "from": "0x95157172Ba509A6489504A6e06A9227e83cB9c12",
-      "tx": "0x5cdb2fcf96f0856e2ceac8fd7804f31f6c84cdda9dab0b892bae59ed15e0ac6b",
+      "from": "0xa89878E4ed005Ca2dB9E3747B6d27a75D9D73B34",
+      "tx": "0x782fb119b0623003c8a22e290bcbdc61d05d45e02542dbb2a44fb1133e30c4ba",
       "status": "ACCEPTED",
       "ok": false,
       "refusal": "[EXPECTED] only the obligor may claim an excuse"
@@ -58,8 +40,8 @@
     {
       "step": "the obligor claims: a port strike",
       "method": "claim",
-      "from": "0x328916665B1b55BEcACd2003C0966d730c366D3c",
-      "tx": "0x559d582c4665721b0041e2efc056d6fe0965b65c63f00646503978659a756599",
+      "from": "0xe5051Ff343d91aE303059A3CcB21Ca895E19dfFf",
+      "tx": "0x0d9a74a398335d1873e747e5c43c7db8a2338ab9fb92eb332c8a8bf22e0b60b7",
       "status": "ACCEPTED",
       "ok": true,
       "refusal": ""
@@ -67,8 +49,8 @@
     {
       "step": "a second claim while one waits",
       "method": "claim",
-      "from": "0x328916665B1b55BEcACd2003C0966d730c366D3c",
-      "tx": "0xee29ddcd575794d36d812497cb770ec7edc8b8a9ee47613f8561f9aea00f6abd",
+      "from": "0xe5051Ff343d91aE303059A3CcB21Ca895E19dfFf",
+      "tx": "0xc62b2b895b0e5878146921f1bc64096d1c8ca3c27eef7569e6699b460ffcae10",
       "status": "ACCEPTED",
       "ok": false,
       "refusal": "[EXPECTED] a claim is waiting for its ruling; either party may ask for it"
@@ -76,8 +58,8 @@
     {
       "step": "a stranger asks for the ruling",
       "method": "rule",
-      "from": "0x95157172Ba509A6489504A6e06A9227e83cB9c12",
-      "tx": "0xe06842ec8b22317096fcbce7527531924977d670a251d361ab3a3aa5b6839fbb",
+      "from": "0xa89878E4ed005Ca2dB9E3747B6d27a75D9D73B34",
+      "tx": "0xf0dab9cee6385cfcfd8df446a3644f1db6176f821c4a5851fc7cdbe8014f8e98",
       "status": "ACCEPTED",
       "ok": false,
       "refusal": "[EXPECTED] only the obligee or the obligor may ask for a ruling"
@@ -85,8 +67,8 @@
     {
       "step": "ruled: both orders, every excuse",
       "method": "rule",
-      "from": "0x158B835C873846519b2AfE0Ae04Db240912CE64f",
-      "tx": "0x600e96be67ee3e410d029ca43152c1b55365f46d720844b94d1272d692b56962",
+      "from": "0x3c1581EDa3F7Bb375ca44816CD6255AB091A8CD7",
+      "tx": "0xda1149c9694840f36292ae801337b324a6c844d9b590234f9ac67db854429a6b",
       "status": "ACCEPTED",
       "ok": true,
       "refusal": ""
@@ -94,8 +76,8 @@
     {
       "step": "the same account again",
       "method": "claim",
-      "from": "0x328916665B1b55BEcACd2003C0966d730c366D3c",
-      "tx": "0x33667f8c90711d3949e49a72b472af190b640a967bf1fb628910fb2a8928e547",
+      "from": "0xe5051Ff343d91aE303059A3CcB21Ca895E19dfFf",
+      "tx": "0x519eb10d7ee9cb716c97e641e8cf5e534cd3bcd93699d75d9386c760d7c48ec2",
       "status": "ACCEPTED",
       "ok": false,
       "refusal": "[EXPECTED] this account was already ruled on; a new claim has to describe the event differently"
@@ -103,8 +85,8 @@
     {
       "step": "the obligor claims: staff illness",
       "method": "claim",
-      "from": "0x328916665B1b55BEcACd2003C0966d730c366D3c",
-      "tx": "0xc32246fd7e1f99fa79f1adb4cb7f6cbb46bad054683703e321b6e4d8ab4bae49",
+      "from": "0xe5051Ff343d91aE303059A3CcB21Ca895E19dfFf",
+      "tx": "0xc1286853b99cab283065e9f60566f71ed00ac04b248c456015394260487c6598",
       "status": "ACCEPTED",
       "ok": true,
       "refusal": ""
@@ -112,8 +94,8 @@
     {
       "step": "ruled: the unused excuses only",
       "method": "rule",
-      "from": "0x328916665B1b55BEcACd2003C0966d730c366D3c",
-      "tx": "0xd0ec2c5106e4dd4d359c3dd2a4c20b7f8705bbc37bbc8976f537a3f3cbd80e2c",
+      "from": "0xe5051Ff343d91aE303059A3CcB21Ca895E19dfFf",
+      "tx": "0x57e23a0bde1986d49733ccec22ebaf27c9b1e05492c6284cec3ac5346549c564",
       "status": "ACCEPTED",
       "ok": true,
       "refusal": ""
@@ -121,8 +103,8 @@
     {
       "step": "a third claim",
       "method": "claim",
-      "from": "0x328916665B1b55BEcACd2003C0966d730c366D3c",
-      "tx": "0x69e2c39d882d87f6eb8138dcffa5f8e89cf36131970e099a17fa130e17f43438",
+      "from": "0xe5051Ff343d91aE303059A3CcB21Ca895E19dfFf",
+      "tx": "0x9ca55228c8e1e8f85354560199e4c8b63c686729e6e16a1444423fb47a92b204",
       "status": "ACCEPTED",
       "ok": false,
       "refusal": "[EXPECTED] an obligation takes at most 2 claims"
@@ -130,40 +112,85 @@
     {
       "step": "obligation 0 kept",
       "method": "fulfil",
-      "from": "0x158B835C873846519b2AfE0Ae04Db240912CE64f",
-      "tx": "0xd1d68c3c4822f065a04d0d53f65982036a72e450f6a9ed16e4e15983b39123b3",
+      "from": "0x3c1581EDa3F7Bb375ca44816CD6255AB091A8CD7",
+      "tx": "0xe3336652df79b70c78e665524d57d1c9b7b4affd1ca5288e1f37ab39c189a177",
       "status": "ACCEPTED",
       "ok": true,
       "refusal": ""
     },
     {
+      "step": "obligation 1 opened: five minutes",
+      "method": "open",
+      "from": "0x3c1581EDa3F7Bb375ca44816CD6255AB091A8CD7",
+      "tx": "0x411ef964376a0f51f1e8bcc80f4084acc0bbef6969067c552eeaaac0547fdd1c",
+      "status": "ACCEPTED",
+      "ok": true,
+      "refusal": ""
+    },
+    {
+      "step": "a breach recorded before the deadline",
+      "method": "lapse",
+      "from": "0xa89878E4ed005Ca2dB9E3747B6d27a75D9D73B34",
+      "tx": "0x4a3c8ed73c7a5dfeb6fa2a2cc5ccc400644564ca0b5650c0b635777672b3922f",
+      "status": "ACCEPTED",
+      "ok": false,
+      "refusal": "[EXPECTED] the deadline is 2026-10-02T19:37:57Z"
+    },
+    {
+      "step": "the obligor claims in time; nobody asks for the ruling",
+      "method": "claim",
+      "from": "0xe5051Ff343d91aE303059A3CcB21Ca895E19dfFf",
+      "tx": "0xf3adc00cecc19739c0b1ec5c4c19efae807f932f5271a4f55ab7caaeaf1f049e",
+      "status": "ACCEPTED",
+      "ok": true,
+      "refusal": ""
+    },
+    {
+      "step": "a breach while the claim's grace window runs",
+      "method": "lapse",
+      "from": "0xa89878E4ed005Ca2dB9E3747B6d27a75D9D73B34",
+      "tx": "0x7d57dc42519ee4e79fde06aec06ec454e32f498673752bb555e487518605630c",
+      "status": "ACCEPTED",
+      "ok": false,
+      "refusal": "[EXPECTED] a claim filed in time is waiting for its ruling until 2026-10-02T19:42:57Z"
+    },
+    {
+      "step": "a ruling after the grace window closed",
+      "method": "rule",
+      "from": "0x3c1581EDa3F7Bb375ca44816CD6255AB091A8CD7",
+      "tx": "0x07b1914c570c346b72ca577070d21324636b159d7b67c4176bc48d719a5fb3a0",
+      "status": "ACCEPTED",
+      "ok": false,
+      "refusal": "[EXPECTED] the grace window for the waiting claim closed at 2026-10-02T19:42:57Z; it can no longer be ruled on, and the obligation can only lapse"
+    },
+    {
       "step": "obligation 1 breached",
       "method": "lapse",
-      "from": "0x95157172Ba509A6489504A6e06A9227e83cB9c12",
-      "tx": "0xab55842f0ccdcd167f28798f1acfdd4c21c60c02279c097890e66222c43d0667",
+      "from": "0xa89878E4ed005Ca2dB9E3747B6d27a75D9D73B34",
+      "tx": "0x43ef9458b3560eba7aa52e41241bc19867437dd85e37410c292246afcac97b9a",
       "status": "ACCEPTED",
       "ok": true,
       "refusal": ""
     }
   ],
   "accounts": {
-    "deployer": "0x7341Bc21D4a09756b98f1B90E0df13Ed05002623",
-    "obligee": "0x158B835C873846519b2AfE0Ae04Db240912CE64f",
-    "obligor": "0x328916665B1b55BEcACd2003C0966d730c366D3c",
-    "stranger": "0x95157172Ba509A6489504A6e06A9227e83cB9c12"
+    "deployer": "0x6F17364B4495ee8A34f2FA6195a492b956748dd9",
+    "obligee": "0x3c1581EDa3F7Bb375ca44816CD6255AB091A8CD7",
+    "obligor": "0xe5051Ff343d91aE303059A3CcB21Ca895E19dfFf",
+    "stranger": "0xa89878E4ed005Ca2dB9E3747B6d27a75D9D73B34"
   },
   "obligations": [
     {
       "obligation": {
         "claims": 2,
-        "closed_at": "2026-09-24T12:58:52Z",
+        "closed_at": "2026-10-02T19:32:40Z",
         "days_extended": 3,
-        "due_at": "2026-09-27T13:52:19Z",
+        "due_at": "2026-10-05T20:29:11Z",
         "duty": "Deliver 400 printed catalogues to stand B12 at the Harbour trade fair.",
-        "grace_ends": "2026-09-27T13:57:19Z",
-        "obligee": "0x158B835C873846519b2AfE0Ae04Db240912CE64f",
-        "obligor": "0x328916665B1b55BEcACd2003C0966d730c366D3c",
-        "opened_at": "2026-09-24T12:52:19Z",
+        "grace_ends": "2026-10-05T20:34:11Z",
+        "obligee": "0x3c1581EDa3F7Bb375ca44816CD6255AB091A8CD7",
+        "obligor": "0xe5051Ff343d91aE303059A3CcB21Ca895E19dfFf",
+        "opened_at": "2026-10-02T19:29:11Z",
         "pending": false,
         "status": "kept",
         "title": "Catalogue delivery for the Harbour trade fair"
@@ -194,8 +221,8 @@
       "claims": [
         {
           "account": "A national port strike began on 3 March and stopped every carrier serving the Rotterdam delivery route for two days. The printed catalogues sat at the depot until the strike ended.",
-          "at": "2026-09-24T12:53:47.750138Z",
-          "by": "0x328916665B1b55BEcACd2003C0966d730c366D3c",
+          "at": "2026-10-02T19:29:42.900162Z",
+          "by": "0xe5051Ff343d91aE303059A3CcB21Ca895E19dfFf",
           "days_granted": 3,
           "id": 0,
           "obligation": 0,
@@ -203,12 +230,12 @@
           "ruled": true,
           "ruling": "0",
           "seq": 1,
-          "why": "The account describes a strike stopping carriers serving the delivery route."
+          "why": "It describes a port strike stopping every carrier serving the Rotterdam delivery route for two days."
         },
         {
           "account": "Our print supervisor was ill for a week in February, so the second print run started late and the catalogues left the print works four days behind schedule.",
-          "at": "2026-09-24T12:57:03.259763Z",
-          "by": "0x328916665B1b55BEcACd2003C0966d730c366D3c",
+          "at": "2026-10-02T19:31:11.108870Z",
+          "by": "0xe5051Ff343d91aE303059A3CcB21Ca895E19dfFf",
           "days_granted": 0,
           "id": 1,
           "obligation": 0,
@@ -216,21 +243,21 @@
           "ruled": true,
           "ruling": "none",
           "seq": 2,
-          "why": "Staff illness is not listed as an excuse; the delay was due to internal personnel issues rather than authorities or natural disasters."
+          "why": "Illness of staff caused delay, not covered by listed excuses"
         }
       ]
     },
     {
       "obligation": {
-        "claims": 0,
-        "closed_at": "2026-09-24T12:59:04Z",
+        "claims": 1,
+        "closed_at": "2026-10-02T19:43:30Z",
         "days_extended": 0,
-        "due_at": "2026-09-24T12:57:36Z",
+        "due_at": "2026-10-02T19:37:57Z",
         "duty": "Install the printed stand signage at stand B12 before the fair opens.",
-        "grace_ends": "2026-09-24T13:02:36Z",
-        "obligee": "0x158B835C873846519b2AfE0Ae04Db240912CE64f",
-        "obligor": "0x328916665B1b55BEcACd2003C0966d730c366D3c",
-        "opened_at": "2026-09-24T12:52:36Z",
+        "grace_ends": "2026-10-02T19:42:57Z",
+        "obligee": "0x3c1581EDa3F7Bb375ca44816CD6255AB091A8CD7",
+        "obligor": "0xe5051Ff343d91aE303059A3CcB21Ca895E19dfFf",
+        "opened_at": "2026-10-02T19:32:57Z",
         "pending": false,
         "status": "breached",
         "title": "Stand signage for the Harbour trade fair"
@@ -258,7 +285,21 @@
           "used_by": 0
         }
       ],
-      "claims": []
+      "claims": [
+        {
+          "account": "Strong winds closed the access road to the fairground for an afternoon, and the sign installers could not reach stand B12 until the next morning.",
+          "at": "2026-10-02T19:33:26.541025Z",
+          "by": "0xe5051Ff343d91aE303059A3CcB21Ca895E19dfFf",
+          "days_granted": 0,
+          "id": 2,
+          "obligation": 1,
+          "reason_is_leader_supplied": true,
+          "ruled": false,
+          "ruling": "",
+          "seq": 1,
+          "why": ""
+        }
+      ]
     }
   ]
 }

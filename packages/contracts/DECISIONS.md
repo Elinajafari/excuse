@@ -61,7 +61,16 @@ it. Covenant's one known weakness is a judgment that never reaches consensus
 and blocks its facility for good; this is the answer to that here.
 
 A ruling may land after the deadline for a claim filed before it, and the
-extension counts from the original deadline, not from the ruling.
+extension counts from the original deadline, not from the ruling. But only
+until the grace window closes: the protection a claim gives and the chance to
+have it ruled on end at the same moment, `due_at + grace_seconds`. Past it,
+`rule()` refuses before any model is asked, and the obligation can only lapse.
+Without that bound a party could let the grace window run out, wait until the
+breach is plain, and then ask for a ruling that extends a deadline whose
+protection had already expired (a steward review pointed this out). The check
+reads the chain's clock, so every node refuses the same transaction, and the
+demo puts it on chain: a claim filed in time on obligation 1, a lapse refused
+while its grace runs, a ruling refused after it closes, then the lapse.
 
 ## Claiming and ruling are two transactions
 

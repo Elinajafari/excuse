@@ -87,7 +87,12 @@ def render_deployment(rec):
     for k, o in enumerate(rec["obligations"]):
         texts = {e["index"]: e["text"] for e in o["excuses"]}
         for c in o["claims"]:
-            ruled = "none" if c["ruling"] == "none" else f"excuse {c['ruling']}: {texts[int(c['ruling'])]}"
+            if not c["ruled"]:
+                ruled = "never ruled: the grace window closed first, and rule() refused"
+            elif c["ruling"] == "none":
+                ruled = "none"
+            else:
+                ruled = f"excuse {c['ruling']}: {texts[int(c['ruling'])]}"
             out.append(f"| {k} | {cell(c['account'][:90])}... | {cell(ruled)} | {c['days_granted']} | {cell(c['why'])} |")
     out += ["", "Every transaction, in order, refusals included:", "",
             "| Step | Outcome | Transaction |", "|---|---|---|"]

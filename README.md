@@ -12,7 +12,7 @@ excuse the account describes, or none. The contract moves the deadline by that
 excuse's frozen days, each excuse can be used once, and anyone can record the
 breach once the deadline has really passed.
 
-**Live on studionet at `0xe6e9B934aF3600665dDCAeE2842FDb3B492f8a0E`.**
+**Live on studionet at `0x1331950259A2D0a524543EbD17E6da2892198480`.**
 Intelligent contract + shared type layer + scripts that deploy, seed, verify
 and prove it, not a standalone contract.
 
@@ -114,7 +114,7 @@ Deploy your own copy and put the whole demo on the explorer:
 
 ```bash
 pnpm deploy:contract    # a fresh deployer wallet deploys packages/contracts/excuse.py (grace window 300 s)
-pnpm seed:contract      # 2 obligations, 2 claims, 2 rulings, kept + breached, 6 refusals, from three more wallets
+pnpm seed:contract      # 2 obligations, 3 claims, 2 rulings, kept + breached, 8 refusals, from three more wallets
 pnpm e2e:contract       # re-reads every transaction and every view: PASS/FAIL
 pnpm evidence:contract  # rewrites EVIDENCE.md from the chain
 ```
@@ -150,18 +150,22 @@ and `STRANGER_PRIVATE_KEY`.
 Obligation 0 is a catalogue delivery for a trade fair, due in an hour, with
 three excuses: a strike that stops carriers (3 days), a public authority's
 order (2 days), and a fire, flood or storm (5 days). Obligation 1 has the same
-excuses and is due in five minutes.
+excuses and is due in five minutes; its obligor claims in time, and nobody asks
+for the ruling until the grace window has closed.
 
 | Claim | Ruling | Deadline |
 |---|---|---|
 | "A national port strike began on 3 March and stopped every carrier serving the Rotterdam delivery route for two days" | **excuse 0**, both orders | **+3 days** |
 | "Our print supervisor was ill for a week" | **none**: the obligor's own trouble is no listed excuse | +0 days |
 
-Obligation 0 ends **kept**; obligation 1, never claimed on, ends **breached**
-once its deadline has passed. Around them, six refusals, each from the wallet
-it is about: a breach recorded too early, a stranger claiming, a second claim
+Obligation 0 ends **kept**. On obligation 1 the claim filed in time holds
+off a lapse while its grace window runs; once the window closes, a ruling is
+**refused before any model is asked** (a late ruling can never extend an
+expired deadline), and the obligation ends **breached**. Around them, eight
+refusals, each from the wallet it is about: a stranger claiming, a second claim
 while one waits, a stranger asking for a ruling, the same account filed again,
-and a third claim. Full detail, with every hash: [EVIDENCE.md](EVIDENCE.md)
+a third claim, a breach recorded too early, a breach while a claim's grace
+runs, and the ruling asked for too late. Full detail, with every hash: [EVIDENCE.md](EVIDENCE.md)
 and [`packages/contracts/README.md`](packages/contracts/README.md#verified-against-the-live-deployment).
 
 ### Second round, two new wallets
